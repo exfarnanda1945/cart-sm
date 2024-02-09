@@ -18,7 +18,7 @@ class DetailProduct extends StatelessWidget {
         ),
         backgroundColor: const Color(0xff3867d6),
         title: const Text(
-          "Zstore",
+          "Detail Product",
           style: TextStyle(color: Colors.white),
         ),
         actions: [
@@ -36,7 +36,8 @@ class DetailProduct extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.only(
+              top: 32, left: 16.0, right: 16.0, bottom: 16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
