@@ -5,6 +5,14 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(0xff3867d6),
+        title: const Text(
+          "Cart",
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+    );
   }
 }

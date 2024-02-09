@@ -2,6 +2,7 @@ import 'package:cart_sm/model/product-repository.dart';
 import 'package:cart_sm/model/product.dart';
 import 'package:cart_sm/screen/home/product-card.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -38,26 +39,34 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.only(right: 16),
             child: Badge.count(
                 count: 3,
-                child: const Icon(
-                  Icons.shopping_cart,
-                  color: Colors.white,
-                  size: 30,
+                child: IconButton(
+                  onPressed: () {
+                    context.pushNamed("cart");
+                  },
+                  icon: const Icon(
+                    Icons.shopping_cart,
+                    color: Colors.white,
+                    size: 30,
+                  ),
                 )),
           )
         ],
       ),
-      body: products == null ? const Center(
-        child: CircularProgressIndicator(),
-      ) : GridView.count(
-        primary: false,
-        childAspectRatio: 5 / 7,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-        crossAxisSpacing: 20,
-        mainAxisSpacing: 10,
-        crossAxisCount: 2,
-        children:
-        products!.map((product) => ProductCard(product: product)).toList(),
-      ),
+      body: products == null
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : GridView.count(
+              primary: false,
+              childAspectRatio: 5 / 7,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+              crossAxisSpacing: 20,
+              mainAxisSpacing: 10,
+              crossAxisCount: 2,
+              children: products!
+                  .map((product) => ProductCard(product: product))
+                  .toList(),
+            ),
     );
   }
 
