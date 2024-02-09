@@ -26,10 +26,15 @@ class DetailProduct extends StatelessWidget {
             padding: const EdgeInsets.only(right: 16),
             child: Badge.count(
                 count: 3,
-                child: const Icon(
-                  Icons.shopping_cart,
-                  color: Colors.white,
-                  size: 30,
+                child: IconButton(
+                  onPressed: () {
+                    context.pushNamed("cart");
+                  },
+                  icon: const Icon(
+                    Icons.shopping_cart,
+                    color: Colors.white,
+                    size: 30,
+                  ),
                 )),
           )
         ],
