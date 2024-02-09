@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 class ProductRepository {
   Future<List<Product>> fetchProducts() async {
     String jsonString = await rootBundle.loadString('assets/products.json');
-    final jsonProduct = await jsonDecode(jsonString) as List<dynamic>;
+    final jsonProduct = jsonDecode(jsonString) as List<dynamic>;
 
     return jsonProduct.map((e) => Product.fromJson(e)).toList();
   }
