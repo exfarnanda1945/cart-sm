@@ -1,4 +1,5 @@
 import 'package:cart_sm/model/product.dart';
+import 'package:cart_sm/screen/detail-product/add-to-cart-dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -191,64 +192,8 @@ class DetailProduct extends StatelessWidget {
     showDialog(
         context: context,
         builder: (context) {
-          return AlertDialog(
-            title: const Text(
-              'Add to cart',
-              style: TextStyle(fontSize: 18),
-            ),
-            backgroundColor: Colors.white,
-            content: SizedBox(
-              height: 100,
-              child: Column(
-                children: [
-                  Text(
-                    product.title,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(fontWeight: FontWeight.w600),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton(
-                          onPressed: () {},
-                          icon: Container(
-                              decoration: BoxDecoration(
-                                  border:
-                                      Border.all(color: Colors.black, width: 1),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10))),
-                              child: const Icon(Icons.add))),
-                      IconButton(
-                          onPressed: () {},
-                          icon: Container(
-                              decoration: BoxDecoration(
-                                  border:
-                                      Border.all(color: Colors.black, width: 1),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10))),
-                              child: const Icon(Icons.remove)))
-                    ],
-                  )
-                ],
-              ),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  context.pop();
-                },
-                child: const Text(
-                  'Cancel',
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  context.pop();
-                },
-                child: const Text('Ok'),
-              ),
-            ],
+          return AddToCartDialog(
+            product: product,
           );
         });
   }
