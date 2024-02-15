@@ -1,17 +1,19 @@
 import 'package:cart_sm/model/product-repository.dart';
 import 'package:cart_sm/model/product.dart';
+import 'package:cart_sm/screen/cart/cart-provider.dart';
 import 'package:cart_sm/screen/home/product-card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   List<Product>? products;
 
   @override
@@ -25,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+    final countCart = ref.read(cartProviderProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -38,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Padding(
             padding: const EdgeInsets.only(right: 16),
             child: Badge.count(
-                count: 3,
+                count: countCart.getCountCart(),
                 child: IconButton(
                   onPressed: () {
                     context.pushNamed("cart");

@@ -1,16 +1,22 @@
 import 'package:cart_sm/model/product.dart';
+import 'package:cart_sm/screen/cart/cart-provider.dart';
 import 'package:cart_sm/screen/detail-product/add-to-cart-dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class DetailProduct extends StatelessWidget {
+class DetailProduct extends ConsumerWidget {
   const DetailProduct({super.key, required this.product});
 
   final Product product;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+    final countCart = ref.watch(cartProviderProvider);
+
+    print(countCart);
+
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
@@ -26,7 +32,7 @@ class DetailProduct extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 16),
             child: Badge.count(
-                count: 3,
+                count: countCart.length,
                 child: IconButton(
                   onPressed: () {
                     context.pushNamed("cart");

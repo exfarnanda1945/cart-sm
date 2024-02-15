@@ -24,4 +24,8 @@ class CartProvider extends _$CartProvider {
       state[indexCart] = cart;
     }
   }
+
+  int getCountCart(){
+    return state.length;
+  }
 }
