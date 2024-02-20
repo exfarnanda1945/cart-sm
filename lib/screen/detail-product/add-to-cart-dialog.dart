@@ -16,9 +16,9 @@ class AddToCartDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final cartCounter = ref.watch(countCartProviderProvider);
-    TextEditingController countController =
-        TextEditingController(text: cartCounter.toString());
+    final countCartProvider = ref.watch(countCartProviderProvider);
+    final TextEditingController countController =
+        TextEditingController(text: countCartProvider.toString());
 
     return AlertDialog(
       title: const Text(
@@ -31,7 +31,7 @@ class AddToCartDialog extends ConsumerWidget {
         child: Column(
           children: [
             Text(
-              product.title,
+              "${product.title} - \$${product.price * countCartProvider}",
               textAlign: TextAlign.center,
               style: const TextStyle(fontWeight: FontWeight.w600),
             ),
@@ -43,13 +43,18 @@ class AddToCartDialog extends ConsumerWidget {
               children: [
                 IconButton(
                     onPressed: () {
-                      ref.read(countCartProviderProvider.notifier).increment();
+                      ref
+                          .read(countCartProviderProvider.notifier)
+                          .increment(product.count);
                     },
                     icon: Container(
-                        decoration: const BoxDecoration(
-                            color: Color(0xff2ed573),
+                        decoration: BoxDecoration(
+                            color: product.count <=
+                                    ref.watch(countCartProviderProvider)
+                                ? Colors.grey
+                                : const Color(0xff2ed573),
                             borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
+                                const BorderRadius.all(Radius.circular(10))),
                         child: const Icon(
                           Icons.add,
                           size: 24,
@@ -62,6 +67,7 @@ class AddToCartDialog extends ConsumerWidget {
                     controller: countController,
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
+                    enabled: false,
                   ),
                 ),
                 IconButton(
@@ -69,10 +75,12 @@ class AddToCartDialog extends ConsumerWidget {
                       ref.read(countCartProviderProvider.notifier).decrement();
                     },
                     icon: Container(
-                        decoration: const BoxDecoration(
-                            color: Color(0xffff4757),
+                        decoration: BoxDecoration(
+                            color: ref.watch(countCartProviderProvider) > 1
+                                ? const Color(0xffff4757)
+                                : Colors.grey,
                             borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
+                                const BorderRadius.all(Radius.circular(10))),
                         child: const Icon(
                           Icons.remove,
                           size: 24,

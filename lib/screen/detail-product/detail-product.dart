@@ -1,3 +1,4 @@
+import 'package:cart_sm/model/cart.dart';
 import 'package:cart_sm/model/product.dart';
 import 'package:cart_sm/screen/cart/cart-provider.dart';
 import 'package:cart_sm/screen/detail-product/add-to-cart-dialog.dart';
@@ -13,9 +14,6 @@ class DetailProduct extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-    final countCart = ref.watch(cartProviderProvider);
-
-    print(countCart);
 
     return Scaffold(
       key: scaffoldKey,
@@ -32,7 +30,7 @@ class DetailProduct extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.only(right: 16),
             child: Badge.count(
-                count: countCart.length,
+                count: ref.watch(cartProviderProvider).length,
                 child: IconButton(
                   onPressed: () {
                     context.pushNamed("cart");
