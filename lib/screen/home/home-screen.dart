@@ -27,7 +27,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-    final countCart = ref.read(cartProviderProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -41,7 +40,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           Padding(
             padding: const EdgeInsets.only(right: 16),
             child: Badge.count(
-                count: countCart.getCountCart(),
+                count: ref.watch(cartProviderProvider).length,
                 child: IconButton(
                   onPressed: () {
                     context.pushNamed("cart");
@@ -75,7 +74,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 }
