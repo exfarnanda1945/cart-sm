@@ -8,7 +8,7 @@ class CartScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final countCart = ref.read(cartProviderProvider);
+    final cart = ref.read(cartProviderProvider);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xff3867d6),
@@ -20,11 +20,19 @@ class CartScreen extends ConsumerWidget {
           style: TextStyle(color: Colors.white),
         ),
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          children: [CartCard()],
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: ListView.builder(
+          itemCount: cart.length,
+          itemBuilder: (context, index) {
+            return CartCard(
+              cart: cart[index],
+            );
+          },
         ),
+        // child: Column(
+        //   children: [CartCard()],
+        // ),
       ),
     );
   }

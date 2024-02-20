@@ -1,7 +1,27 @@
+import 'package:cart_sm/model/cart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CartCard extends StatelessWidget {
-  const CartCard({super.key});
+
+class CartCard extends ConsumerStatefulWidget {
+  const CartCard({super.key, required this.cart});
+
+  final Cart cart;
+
+  @override
+  ConsumerState<CartCard> createState() => _CartCardState();
+}
+
+class _CartCardState extends ConsumerState<CartCard> {
+  late TextEditingController countController;
+
+
+  @override
+  void initState() {
+    super.initState();
+    countController =
+        TextEditingController(text: widget.cart.totalCount.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +32,7 @@ class CartCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.network(
-              "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
+              widget.cart.product.image,
               height: 100,
               width: 100,
             ),
@@ -23,11 +43,11 @@ class CartCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
+                  Text(
+                    widget.cart.product.title,
                     maxLines: 2,
                     textAlign: TextAlign.start,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
                     ),
@@ -35,23 +55,18 @@ class CartCard extends StatelessWidget {
                   const SizedBox(
                     height: 5,
                   ),
-                  const Text(
-                    "Category: men's clothing",
+                  Text(
+                    "Category: ${widget.cart.product.category}",
                     textAlign: TextAlign.start,
-                    style: TextStyle(fontStyle: FontStyle.italic),
-                  ),
-                  const Text(
-                    "In Stock: 25",
-                    textAlign: TextAlign.start,
-                    style: TextStyle(fontSize: 14 ),
+                    style: const TextStyle(fontStyle: FontStyle.italic),
                   ),
                   const SizedBox(
                     height: 5,
                   ),
-                  const Text(
-                    '\$${"5000"}',
+                  Text(
+                    '\$${widget.cart.totalCount * widget.cart.product.price}',
                     textAlign: TextAlign.start,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 20,
                       color: Color(0xff3867d6),
@@ -61,7 +76,9 @@ class CartCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            updateCart(ref);
+                          },
                           icon: Container(
                               decoration: const BoxDecoration(
                                   color: Color(0xff2ed573),
@@ -72,12 +89,14 @@ class CartCard extends StatelessWidget {
                                 size: 24,
                                 color: Colors.white,
                               ))),
-                      const SizedBox(
+                       SizedBox(
                         width: 50,
                         child: TextField(
+                          controller: countController,
                           maxLines: 1,
                           keyboardType: TextInputType.number,
                           textAlign: TextAlign.center,
+                          enabled: false,
                         ),
                       ),
                       IconButton(
@@ -101,5 +120,9 @@ class CartCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void updateCart(WidgetRef ref) {
+    // final updatedCart = Cart(id: widget.cart.id, product: widget.cart.product, totalPrice: , totalCount: totalCount)
   }
 }
