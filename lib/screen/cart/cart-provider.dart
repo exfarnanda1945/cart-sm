@@ -4,14 +4,14 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'cart-provider.g.dart';
 
 @riverpod
-class CartProvider extends _$CartProvider {
+class CartProvider extends _$CartProvider  {
   @override
   List<Cart> build() {
     return [];
   }
 
   void addToCart(Cart cart) {
-    state.add(cart);
+    state = [...state, cart];
   }
 
   void removeFromCart(Cart cart) {
@@ -19,13 +19,16 @@ class CartProvider extends _$CartProvider {
   }
 
   void editCart(Cart cart) {
-    final indexCart = state.indexWhere((item) => item.id == cart.id);
-    if (indexCart != -1) {
-      state[indexCart] = cart;
+    final carts = state;
+    final updatingIndex = carts.indexOf(cart);
+    if (updatingIndex != -1) {
+      carts[updatingIndex] = cart;
     }
+
+    state= carts;
   }
 
-  int getCountCart(){
+  int getCountCart() {
     return state.length;
   }
 }

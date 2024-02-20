@@ -6,7 +6,7 @@ part of 'count-cart-provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$countCartProviderHash() => r'af87bdf2b201422ad00026ff9479989f92daaa83';
+String _$countCartProviderHash() => r'c20edcb304d11e39d62fde1a17cec40a0ff1d754';
 
 /// See also [CountCartProvider].
 @ProviderFor(CountCartProvider)

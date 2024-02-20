@@ -9,8 +9,10 @@ class CountCartProvider extends _$CountCartProvider {
     return 1;
   }
 
-  void increment() {
-    state++;
+  void increment(int maxProduct) {
+    if (state < maxProduct) {
+      state++;
+    }
   }
 
   void decrement() {
