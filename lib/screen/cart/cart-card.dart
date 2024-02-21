@@ -2,7 +2,6 @@ import 'package:cart_sm/model/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 class CartCard extends ConsumerStatefulWidget {
   const CartCard({super.key, required this.cart});
 
@@ -14,7 +13,6 @@ class CartCard extends ConsumerStatefulWidget {
 
 class _CartCardState extends ConsumerState<CartCard> {
   late TextEditingController countController;
-
 
   @override
   void initState() {
@@ -80,16 +78,19 @@ class _CartCardState extends ConsumerState<CartCard> {
                             updateCart(ref);
                           },
                           icon: Container(
-                              decoration: const BoxDecoration(
-                                  color: Color(0xff2ed573),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
+                              decoration: BoxDecoration(
+                                  color: int.parse(countController.text) >=
+                                          widget.cart.product.count
+                                      ? Colors.grey
+                                      : const Color(0xff2ed573),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(10))),
                               child: const Icon(
                                 Icons.add,
                                 size: 24,
                                 color: Colors.white,
                               ))),
-                       SizedBox(
+                      SizedBox(
                         width: 50,
                         child: TextField(
                           controller: countController,
@@ -102,10 +103,12 @@ class _CartCardState extends ConsumerState<CartCard> {
                       IconButton(
                           onPressed: () {},
                           icon: Container(
-                              decoration: const BoxDecoration(
-                                  color: Color(0xffff4757),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
+                              decoration: BoxDecoration(
+                                  color: int.parse(countController.text) <= 1
+                                      ? Colors.grey
+                                      : const Color(0xffff4757),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(10))),
                               child: const Icon(
                                 Icons.remove,
                                 size: 24,
